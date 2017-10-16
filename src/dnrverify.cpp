@@ -111,7 +111,7 @@ inline bool DecodeBase58Check(const char* psz, std::vector<unsigned char>& vchRe
         vchRet.clear();
         return false;
     }
-    vchRet.resize(vchRet.size()-4);
+    vchRet.resize(vchRet.size()-4); // remove the checksum
     return true;
 }
 
@@ -205,7 +205,7 @@ bool isValidAddress(const char* psz, uint160* id = NULL)
 	if (vchTemp.empty())
 	    return false;
 	if (id != NULL && vchTemp.size() > 20)
-		memcpy(id, &vchTemp[1], 20);
+		memcpy(id, &vchTemp[1], 20); // remove the address prefix
 	memset(&vchTemp[0], 0, vchTemp.size());	
 	return (vchTemp.size() == 21);
 }
